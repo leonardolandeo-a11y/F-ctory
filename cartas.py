@@ -487,8 +487,11 @@ def aplicar_carta(numero: int , estado : dict):
     # Carta 17: Rumor de corrupcion
     #   - Reputacion del mercado −2 niveles.
     elif numero == 17:
-        Nivel = estado["Reputacion del mercado"].split(" ")
-        estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-2)}"
+        if estado["BrandingActivo"] == True:
+            return estado
+        elif estado["BrandingActivo"] == False:
+            Nivel = estado["Reputacion del mercado"].split(" ")
+            estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-2)}"
         return estado
     
     # Terminado
@@ -520,8 +523,11 @@ def aplicar_carta(numero: int , estado : dict):
     # Carta 20: Producto defectuoso viral
     #   - Reputacion del mercado −3 niveles.
     elif numero == 20:
-        Nivel = estado["Reputacion del mercado"].split(" ")
-        estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-3)}"
+        if estado["BrandingActivo"] == True:
+            return estado
+        elif estado["BrandingActivo"] == False:
+            Nivel = estado["Reputacion del mercado"].split(" ")
+            estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-3)}"
         return estado
     
     # Terminado 
@@ -555,8 +561,11 @@ def aplicar_carta(numero: int , estado : dict):
     # Carta 23: Fake news en redes
     #   - Reputacion del mercado −2 niveles.
     elif numero == 23:
-        Nivel = estado["Reputacion del mercado"].split(" ")
-        estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-2)}"
+        if estado["BrandingActivo"] == True:
+            return estado
+        elif estado["BrandingActivo"] == False:
+            Nivel = estado["Reputacion del mercado"].split(" ")
+            estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-2)}"
         return estado
 
     # Terminado
@@ -624,8 +633,11 @@ def aplicar_carta(numero: int , estado : dict):
     #   - Reputacion del mercado −2 nivel.
     #   - Ventas de este mes se reducen en un 75%
     elif numero == 29:
-        Reputacion = estado["Reputacion del mercado"].split(" ")
-        estado["Reputacion del mercado"] = f"Nivel {max(0,int(Reputacion[1])-2)}"
+        if estado["BrandingActivo"] == True:
+            return estado
+        elif estado["BrandingActivo"] == False:
+            Reputacion = estado["Reputacion del mercado"].split(" ")
+            estado["Reputacion del mercado"] = f"Nivel {max(0,int(Reputacion[1])-2)}"
         estado["Unidades vendidas"] = int(estado["Unidades vendidas"] * 0.25)
         
         return estado
