@@ -580,12 +580,11 @@ def aplicar_carta(numero: int , estado : dict):
     # Duración: 3 turnos
 
     elif numero == 26:
-        Penalidades26 = {"Carta":26, "Nuevo Competidor": 3}
+        Penalidades26 = {"Carta":26, "Nuevo Competidor": 2}
         Penalidad_26.append([Penalidades26,True])
         PenalidadesGlobal.append([Penalidades26,True])
         Penalizacion(Penalidades26,estado)
-        PenalidadCarta26(estado)
-        
+
         return estado
 
     # Terminado
