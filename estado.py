@@ -118,139 +118,137 @@ def calcular_estado_final(estado):
    
    
    # Automatizacion de cartas con penalidades
+   
+   # Carta 3
+   if len(Penalidad_3) != 0: 
+      if Penalidad_3[0][1] == True: 
+         PenalidadTurnos(Penalidad_3[0][0],Penalidad_3,0, estado) 
+         PenalidadCarta3_1(estado)
+         PenalidadCarta3_2(estado)
+         EliminarPenalidad(Penalidad_3)
+   
+   # Carta 6
+   if len(Penalidad_6) != 0:
+      if Penalidad_6[0][1] == True:
+         PenalidadTurnos(Penalidad_6[0][0], Penalidad_6,0,estado)
+         PenalidadCarta6(estado)
+         EliminarPenalidad(Penalidad_6)
 
-   for AuxPenalidad,BoolPenalidades in PenalidadesGlobal: #Por Diccionario Penalidad , Valor de verdad en penalidad global
-      
-      for NombrePenalidad, ValorPenalidad in AuxPenalidad.items():
-         if NombrePenalidad == "Carta":
-            
-            # Penalidades por Carta
-            # Carta 3
-            if len(Penalidad_3) != 0: #Si se activo (se genera la lista)
-               if ValorPenalidad == 3 and Penalidad_3[0][1] == True: #si su valor es 3 y su boleano V
-                  PenalidadTurnos(Penalidad_3[0][0],Penalidad_3,0, estado) #[0] entra a la penalidad, segundo al diccionario, luego la lista, indice y estado
-                  PenalidadCarta3_1(estado)
-                  PenalidadCarta3_2(estado)
-                  EliminarPenalidad(Penalidad_3)
-            # Carta 6
-            if len(Penalidad_6) != 0:
-               if ValorPenalidad == 6 and Penalidad_6[0][1] == True:
-                  PenalidadTurnos(Penalidad_6[0][0], Penalidad_6,0,estado)
-                  PenalidadCarta6(estado)
-                  EliminarPenalidad(Penalidad_6)
+   # Carta 9
+   if len(Penalidad_9) != 0:
+      if Penalidad_9[0][1] == True:
+         PenalidadTurnos(Penalidad_9[0][0],Penalidad_9,0,estado)
+         PenalidadCarta9(estado)
+         EliminarPenalidad(Penalidad_9)
 
-            # Carta 9
-            if len(Penalidad_9) != 0:
-               if ValorPenalidad == 9 and Penalidad_9[0][1] == True:
-                  PenalidadTurnos(Penalidad_9[0][0],Penalidad_9,0,estado)
-                  PenalidadCarta9(estado)
-                  EliminarPenalidad(Penalidad_9)
-            # Carta 12
-            if len(Penalidad_12) != 0:
-               if ValorPenalidad == 12 and Penalidad_12[0][1] == True:
-                  PenalidadTurnos(Penalidad_12[0][0],Penalidad_12,0, estado)
-                  PenalidadCarta12(estado)
-                  EliminarPenalidad(Penalidad_12)
-            # Carta 13
-            if len(Penalidad_13) != 0:
-               if ValorPenalidad == 13 and Penalidad_13[0][1] == True:
-                  PenalidadTurnos(Penalidad_13[0][0],Penalidad_13,0,estado)
-                  PenalidadCarta13(estado)
-                  EliminarPenalidad(Penalidad_13)
-            # Carta 14
-            if len(Penalidad_14) != 0:
-               if ValorPenalidad == 14 and Penalidad_14[0][1] == True:
-                  PenalidadTurnos(Penalidad_14[0][0],Penalidad_14,0,estado)
-                  PenalidadCarta14(estado)
-                  EliminarPenalidad(Penalidad_14)
-            # Carta 15
-            if len(Penalidad_15) != 0:
-               if ValorPenalidad == 15 and Penalidad_15[0][1] == True:
-                  PenalidadTurnos(Penalidad_15[0][0],Penalidad_15,0,estado)
-                  PenalidadCarta15(estado)
-                  EliminarPenalidad(Penalidad_15)
-            # Carta 18
-            if len(Penalidad_18) != 0:
-               if ValorPenalidad == 18 and Penalidad_18[0][1] == True:
-                  PenalidadTurnos(Penalidad_18[0][0],Penalidad_18,0,estado)
-                  PenalidadCarta18(estado)
-                  EliminarPenalidad(Penalidad_18)
-            # Carta 21
-            if len(Penalidad_21) != 0:
-               if ValorPenalidad == 21 and Penalidad_21[0][1] == True:
-                  PenalidadTurnos(Penalidad_21[0][0],Penalidad_21,0,estado)
-                  PenalidadCarta21(estado)
-                  EliminarPenalidad(Penalidad_21)
-            
-            # Carta 22
-            if len(Penalidad_22) != 0:
-               if ValorPenalidad == 22 and Penalidad_22[0][1] == True:
-                  PenalidadTurnos(Penalidad_22[0][0],Penalidad_22,0,estado)
-                  PenalidadCarta22(estado)
-                  EliminarPenalidad(Penalidad_22)
-            
-            # Carta 24
-            if len(Penalidad_24) != 0:
-               if ValorPenalidad == 24 and Penalidad_24[0][1] == True:
-                  PenalidadTurnos(Penalidad_24[0][0],Penalidad_24,0,estado)
-                  PenalidadCarta24(estado)
-                  EliminarPenalidad(Penalidad_24)
-            
-            # Carta 26
-            if len(Penalidad_26) != 0:
-               if ValorPenalidad == 26 and Penalidad_26[0][1] == True:
-                  PenalidadTurnos(Penalidad_26[0][0],Penalidad_26,0,estado)
-                  PenalidadCarta26(estado)
-                  EliminarPenalidad(Penalidad_26)
-            
-            # Carta 28
-            if len(Penalidad_28) != 0:
-               if ValorPenalidad == 28 and Penalidad_28[0][1] == True:
-                  PenalidadTurnos(Penalidad_28[0][0],Penalidad_28,0,estado)
-                  PenalidadCarta28(estado)
-                  EliminarPenalidad(Penalidad_28)
-            
-            # Carta 30
-            if len(Penalidad_30) != 0:
-               if ValorPenalidad == 30 and Penalidad_30[0][1]== True:
-                  PenalidadTurnos(Penalidad_30[0][0],Penalidad_30,0,estado)
-                  PenalidadCarta30(estado)
-                  EliminarPenalidad(Penalidad_30)
-            
-            # Carta 34
-            if len(Penalidad_34) != 0:
-               if ValorPenalidad == 34 and Penalidad_34[0][1] == True:
-                  PenalidadTurnos(Penalidad_34[0][0],Penalidad_34,0,estado)
-                  PenalidadCarta34(estado)
-                  EliminarPenalidad(Penalidad_34)
-                  
-            # Carta 37
-            if len(Penalidad_37) != 0:
-               if ValorPenalidad == 37 and Penalidad_37[0][1] == True:
-                  PenalidadTurnos(Penalidad_37[0][0],Penalidad_37,0,estado)
-                  PenalidadCarta37(estado)
-                  EliminarPenalidad(Penalidad_37)
-            
-            # Carta 38
-            if len(Penalidad_38) != 0:
-               if ValorPenalidad == 38 and Penalidad_38[0][1] == True:
-                  PenalidadTurnos(Penalidad_38[0][0],Penalidad_38,0,estado)
-                  PenalidadCarta38(estado)
-                  EliminarPenalidad(Penalidad_38)
+   # Carta 12
+   if len(Penalidad_12) != 0:
+      if Penalidad_12[0][1] == True:
+            PenalidadTurnos(Penalidad_12[0][0],Penalidad_12,0, estado)
+            PenalidadCarta12(estado)
+            EliminarPenalidad(Penalidad_12)
 
-            # Carta 39
-            if len(Penalidad_39) != 0:
-               if ValorPenalidad == 39 and Penalidad_39[0][1] == True:
-                  PenalidadTurnos(Penalidad_39[0][0],Penalidad_39,0,estado)
-                  PenalidadCarta39(estado)
-                  EliminarPenalidad(Penalidad_39)
+   # Carta 13
+   if len(Penalidad_13) != 0:
+      if  Penalidad_13[0][1] == True:
+         PenalidadTurnos(Penalidad_13[0][0],Penalidad_13,0,estado)
+         PenalidadCarta13(estado)
+         EliminarPenalidad(Penalidad_13)
+   # Carta 14
+   if len(Penalidad_14) != 0:
+      if  Penalidad_14[0][1] == True:
+         PenalidadTurnos(Penalidad_14[0][0],Penalidad_14,0,estado)
+         PenalidadCarta14(estado)
+         EliminarPenalidad(Penalidad_14)
+   # Carta 15
+   if len(Penalidad_15) != 0:
+      if  Penalidad_15[0][1] == True:
+         PenalidadTurnos(Penalidad_15[0][0],Penalidad_15,0,estado)
+         PenalidadCarta15(estado)
+         EliminarPenalidad(Penalidad_15)
+   # Carta 18
+   if len(Penalidad_18) != 0:
+      if Penalidad_18[0][1] == True:
+         PenalidadTurnos(Penalidad_18[0][0],Penalidad_18,0,estado)
+         PenalidadCarta18(estado)
+         EliminarPenalidad(Penalidad_18)
+   # Carta 21
+   if len(Penalidad_21) != 0:
+      if  Penalidad_21[0][1] == True:
+         PenalidadTurnos(Penalidad_21[0][0],Penalidad_21,0,estado)
+         PenalidadCarta21(estado)
+         EliminarPenalidad(Penalidad_21)
+   
+   # Carta 22
+   if len(Penalidad_22) != 0:
+      if  Penalidad_22[0][1] == True:
+         PenalidadTurnos(Penalidad_22[0][0],Penalidad_22,0,estado)
+         PenalidadCarta22(estado)
+         EliminarPenalidad(Penalidad_22)
+   
+   # Carta 24
+   if len(Penalidad_24) != 0:
+      if  Penalidad_24[0][1] == True:
+         PenalidadTurnos(Penalidad_24[0][0],Penalidad_24,0,estado)
+         PenalidadCarta24(estado)
+         EliminarPenalidad(Penalidad_24)
+   
+   # Carta 26
+   if len(Penalidad_26) != 0:
+      if  Penalidad_26[0][1] == True:
+         PenalidadTurnos(Penalidad_26[0][0],Penalidad_26,0,estado)
+         PenalidadCarta26(estado)
+         EliminarPenalidad(Penalidad_26)
+   
+   # Carta 28
+   if len(Penalidad_28) != 0:
+      if  Penalidad_28[0][1] == True:
+         PenalidadTurnos(Penalidad_28[0][0],Penalidad_28,0,estado)
+         PenalidadCarta28(estado)
+         EliminarPenalidad(Penalidad_28)
+   
+   # Carta 30
+   if len(Penalidad_30) != 0:
+      if  Penalidad_30[0][1]== True:
+         PenalidadTurnos(Penalidad_30[0][0],Penalidad_30,0,estado)
+         PenalidadCarta30(estado)
+         EliminarPenalidad(Penalidad_30)
+   
+   # Carta 34
+   if len(Penalidad_34) != 0:
+      if  Penalidad_34[0][1] == True:
+         PenalidadTurnos(Penalidad_34[0][0],Penalidad_34,0,estado)
+         PenalidadCarta34(estado)
+         EliminarPenalidad(Penalidad_34)
+         
+   # Carta 37
+   if len(Penalidad_37) != 0:
+      if  Penalidad_37[0][1] == True:
+         PenalidadTurnos(Penalidad_37[0][0],Penalidad_37,0,estado)
+         PenalidadCarta37(estado)
+         EliminarPenalidad(Penalidad_37)
+   
+   # Carta 38
+   if len(Penalidad_38) != 0:
+      if  Penalidad_38[0][1] == True:
+         PenalidadTurnos(Penalidad_38[0][0],Penalidad_38,0,estado)
+         PenalidadCarta38(estado)
+         EliminarPenalidad(Penalidad_38)
+
+   # Carta 39
+   if len(Penalidad_39) != 0:
+      if  Penalidad_39[0][1] == True:
+         PenalidadTurnos(Penalidad_39[0][0],Penalidad_39,0,estado)
+         PenalidadCarta39(estado)
+         EliminarPenalidad(Penalidad_39)
+   
+   # Carta 40
+   if len(Penalidad_40) != 0:
+      if  Penalidad_40[0][1] == True:
+         PenalidadTurnos(Penalidad_40[0][0],Penalidad_40,0,estado)
+         PenalidadCarta40(estado)
+         EliminarPenalidad(Penalidad_40)
             
-            # Carta 40
-            if len(Penalidad_40) != 0:
-               if ValorPenalidad == 40 and Penalidad_40[0][1] == True:
-                  PenalidadTurnos(Penalidad_40[0][0],Penalidad_40,0,estado)
-                  PenalidadCarta40(estado)
-                  EliminarPenalidad(Penalidad_40)
    Estado = pd.DataFrame.from_dict(estado, orient="index", columns=["valor"])
    print(Estado)
    print(PenalidadesGlobal)
