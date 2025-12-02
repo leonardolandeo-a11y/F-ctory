@@ -1,11 +1,11 @@
 # cartas.py
 PenalidadesGlobal =[]
 ##### Funciones Penalidades ####
-def Penalizacion(penalidad: dict,estado): #se actualiza en estaado
+def Penalizacion(penalidad: dict,estado): 
     for key,valor in penalidad.items():
         estado[key] = valor
 
-def PenalidadTurnos(penalidad: dict ,PenalidadesLista: list,indice: int ,estado): #Penalidad, digamos 3, luego la lista del dic con booleano, luego indice y estado
+def PenalidadTurnos(penalidad: dict ,PenalidadesLista: list,indice: int ,estado): 
     if not isinstance(penalidad, list):
         for key,valor in penalidad.items():
             if key == "Carta":
@@ -19,17 +19,11 @@ def PenalidadTurnos(penalidad: dict ,PenalidadesLista: list,indice: int ,estado)
                 elif estado[key] > 0:
                     estado[key] -= 1
                 
-def EliminarPenalidad(PenalidadLista: list): #se ingresa una lista con diccionario y valor b
-    if PenalidadLista[0][1] == False: #si es falso su v xd se borra
+def EliminarPenalidad(PenalidadLista: list): 
+    if PenalidadLista[0][1] == False:
         PenalidadLista.clear()
     else:
         pass
-
-def EliminarPenalidadGlobal(numero_carta):
-    for i, (penalidad, activo) in enumerate(PenalidadesGlobal):
-        if "Carta" in penalidad and penalidad["Carta"] == numero_carta:
-            PenalidadesGlobal.pop(i)
-            break
 
 ################################
 
@@ -40,24 +34,24 @@ def EliminarPenalidadGlobal(numero_carta):
 Penalidad_3 = []
 def PenalidadCarta3_1(estado):
     
-    if estado["VirusInventarioNoVisible_VirusActivo"] > 1: #Si contador esta activo
-        if isinstance(estado["Inventario"],int) and isinstance(estado["Insumos disponibles"],int): #Si esto es entero
-            estado["GuardadoValoresAuxiliarVirus"] = (estado["Inventario"],estado["Insumos disponibles"]) #Se guardaran los valores psados
+    if estado["VirusInventarioNoVisible_VirusActivo"] > 1: 
+        if isinstance(estado["Inventario"],int) and isinstance(estado["Insumos disponibles"],int): 
+            estado["GuardadoValoresAuxiliarVirus"] = (estado["Inventario"],estado["Insumos disponibles"]) 
 
-        estado["Inventario"] = "No disponible por virus" #Bloqueo temporal
-        estado["Insumos disponibles"] = "No disponible por virus" #Bloqueo temporal
+        estado["Inventario"] = "No disponible por virus" 
+        estado["Insumos disponibles"] = "No disponible por virus"
         
-    elif estado["VirusInventarioNoVisible_VirusActivo"] == 1: #si es el ultimo turno
-        estado["Inventario"] = estado["GuardadoValoresAuxiliarVirus"][0] #devuelves los valores
-        estado["Insumos disponibles"] = estado["GuardadoValoresAuxiliarVirus"][1] #devuelves los valores
+    elif estado["VirusInventarioNoVisible_VirusActivo"] == 1: 
+        estado["Inventario"] = estado["GuardadoValoresAuxiliarVirus"][0] 
+        estado["Insumos disponibles"] = estado["GuardadoValoresAuxiliarVirus"][1]
         estado["GuardadoValoresAuxiliarVirus"]= "Nada que guardar"
     return estado
 def PenalidadCarta3_2(estado):
     if estado["VirusInventarioNoVisible_VirusActivo"] > 0:
-        estado["Prohibir Produccion"] = True #Prohibicion mientras el contador esta vigente
+        estado["Prohibir Produccion"] = True 
         estado["Prohibir Compras"] = True
     elif estado["VirusInventarioNoVisible_VirusActivo"] == 0:
-        estado["Prohibir Produccion"] = False #Desactivamos
+        estado["Prohibir Produccion"] = False 
         estado["Prohibir Compras"] = False
     return estado
 
@@ -201,9 +195,9 @@ def PenalidadCarta34(estado):
 Penalidad_37 = []
 def PenalidadCarta37(estado):
     if estado["Trabajador Accidente"] > 0:
-        estado["Cantidad de empleados"] -= 1
+        estado["Cantidad de empleados"] = estado["GuardadoValoresAuxiliarAccidenteAntes"]
     elif estado["Trabajador Accidente"] == 0:
-        estado["Cantidad de empleados"] += 1
+        estado["Cantidad de empleados"] = estado["GuardadoValoresAuxiliarAccidenteDespues"]
     return estado
 
 # Carta 38
@@ -246,17 +240,20 @@ def aplicar_carta(numero: int , estado : dict):
     # Carta 2: Falla critica en maquinaria:
     # Pierdes 2 maquinas activas permanentemente (hasta hacer mantenimiento)
     elif numero == 2:
-        Maquinas = estado["Maquinas (total/activas/dañadas)"].split("/")
-        for i,elementos in enumerate(Maquinas):
-            Maquinas[i] = int(elementos)
-        Maquinas[1] -= 2
-        Maquinas[2]+= 2
-        if Maquinas[1] <= 0:
-            Maquinas[1] = 0
-        if Maquinas[0] <= 0:
-            Maquinas[0] = 0
-        estado["Maquinas (total/activas/dañadas)"] = f"{Maquinas[0]}/{Maquinas[1]}/{Maquinas[2]}"
-        return estado
+        if "MantenimientoHecho" == True:
+            return estado
+        else:
+            Maquinas = estado["Maquinas (total/activas/dañadas)"].split("/")
+            for i,elementos in enumerate(Maquinas):
+                Maquinas[i] = int(elementos)
+            Maquinas[1] -= 2
+            Maquinas[2]+= 2
+            if Maquinas[1] <= 0:
+                Maquinas[1] = 0
+            if Maquinas[0] <= 0:
+                Maquinas[0] = 0
+            estado["Maquinas (total/activas/dañadas)"] = f"{Maquinas[0]}/{Maquinas[1]}/{Maquinas[2]}"
+            return estado
 
     # Terminado
     # Carta 3: Virus informatico:
@@ -267,8 +264,7 @@ def aplicar_carta(numero: int , estado : dict):
     # Duración: 2 turnos
     elif numero == 3:
         Nivel = estado["Reputacion del mercado"].split()
-        Nivel[1] = int(Nivel[1]) -1
-        estado["Reputacion del mercado"] = f"Nivel {Nivel[1]}"
+        estado["Reputacion del mercado"] = f"Nivel {max(0,int(Nivel[1])-1)}"
         Penalidades3 = {"Carta": 3,"VirusInventarioNoVisible_VirusActivo":3}
         Penalidad_3.append([Penalidades3,True])
         PenalidadesGlobal.append([Penalidades3,True])
@@ -336,15 +332,18 @@ def aplicar_carta(numero: int , estado : dict):
                 print("Se evito la fuga de talento por el excelente ambiente laboral")
                 pass
         else:
-            Maquinas = estado["Maquinas (total/activas/dañadas)"].split("/")
-            if Maquinas[1] != 0:
-                Maquinas[1] -= 1
-                Maquinas[2] +=1
+            if "MantenimientoHecho" == True:
+                return estado
             else:
-                print("No hay maquinas activas")
-            
-            estado["Maquinas (total/activas/dañadas)"] = f"{Maquinas[0]}/{Maquinas[1]}/{Maquinas[2]}"
-            estado["Cantidad de empleados"] = max(0,estado["Cantidad de empleados"]-1)
+                Maquinas = estado["Maquinas (total/activas/dañadas)"].split("/")
+                if Maquinas[1] != 0:
+                    Maquinas[1] -= 1
+                    Maquinas[2] +=1
+                else:
+                    print("No hay maquinas activas")
+                
+                estado["Maquinas (total/activas/dañadas)"] = f"{Maquinas[0]}/{Maquinas[1]}/{Maquinas[2]}"
+                estado["Cantidad de empleados"] = max(0,estado["Cantidad de empleados"]-1)
         return estado
 
 
@@ -421,24 +420,27 @@ def aplicar_carta(numero: int , estado : dict):
                 print("Existe un ambiente laboral favorable y se evitaron los errores de etiquetado")
                 pass
         else:
-            UnidadesActuales = estado["Unidades vendidas"]
-            UnidadesAnteriores = estado["InventarioMesAnterior"]
-            estado["Inventario"] += (UnidadesActuales + UnidadesAnteriores)
-            DineroDevolver = (UnidadesActuales + UnidadesAnteriores)* estado["Precio venta"]
-            Resto = estado["Caja disponible"]-DineroDevolver - 15000
-            if Resto < 0:
-                estado["Caja disponible"] = 0
-                estado["Deuda pendiente"] += abs(Resto)
-            else:
-                estado["Caja disponible"] = Resto
-            estado["Unidades vendidas"] = 0
-            estado["InventarioMesAnterior"] = 0
-            
-            Penalidades13 = {"Carta": 13, "Error etiquetado": 4}
-            Penalidad_13.append([Penalidades13,True])
-            PenalidadesGlobal.append([Penalidades13,True])
-            Penalizacion(Penalidades13,estado)
-            PenalidadCarta13(estado)
+            if estado["Bloqueo cartas Seguridad"]> 0:
+                return estado
+            elif estado["Bloqueo cartas Seguridad"]== 0:
+                UnidadesActuales = estado["Unidades vendidas"]
+                UnidadesAnteriores = estado["InventarioMesAnterior"]
+                estado["Inventario"] += (UnidadesActuales + UnidadesAnteriores)
+                DineroDevolver = (UnidadesActuales + UnidadesAnteriores)* estado["Precio venta"]
+                Resto = estado["Caja disponible"]-DineroDevolver - 15000
+                if Resto < 0:
+                    estado["Caja disponible"] = 0
+                    estado["Deuda pendiente"] += abs(Resto)
+                else:
+                    estado["Caja disponible"] = Resto
+                estado["Unidades vendidas"] = 0
+                estado["InventarioMesAnterior"] = 0
+                
+                Penalidades13 = {"Carta": 13, "Error etiquetado": 4}
+                Penalidad_13.append([Penalidades13,True])
+                PenalidadesGlobal.append([Penalidades13,True])
+                Penalizacion(Penalidades13,estado)
+                PenalidadCarta13(estado)
         return estado
 
 
@@ -494,11 +496,14 @@ def aplicar_carta(numero: int , estado : dict):
     #   - Produccion a la mitad este turno
     # Duración: 3 turnos
     elif numero == 18:
-        Penalidades18 = {"Carta":18, "PlagaPlanta":4}
-        Penalidad_18.append([Penalidades18,True])
-        PenalidadesGlobal.append([Penalidades18,True])
-        Penalizacion(Penalidades18,estado)
-        return estado
+        if "“MantenimientoHecho" == True:
+            return estado
+        else:
+            Penalidades18 = {"Carta":18, "PlagaPlanta":4}
+            Penalidad_18.append([Penalidades18,True])
+            PenalidadesGlobal.append([Penalidades18,True])
+            Penalizacion(Penalidades18,estado)
+            return estado
 
     # Terminado
     # Carta 19: Cliente corproativo VIP cancela pedido
@@ -570,7 +575,10 @@ def aplicar_carta(numero: int , estado : dict):
     # Carta 25: Demanda judicial
     #   - Multas e indemnizaciones +15,000.
     elif numero == 25:
-        estado["Multas e indemnizaciones"] += 15000
+        if estado["Bloqueo de demanda"] > 0:
+            return estado
+        elif estado["Bloqueo de demanda"] == 0:
+            estado["Multas e indemnizaciones"] += 15000
         return estado
 
     # Terminado
@@ -716,13 +724,18 @@ def aplicar_carta(numero: int , estado : dict):
     #   - Produccion −50% este mes
     #   - Temporalmente -1 trabajador por 2 turnos
     elif numero == 37:
-        estado["Multas e indemnizaciones"] += 4000
-        estado["Unidades vendidas"] *= 0.5
-        Penalidades37 = {"Cartas":37,"Trabajador Accidente": 2}
-        Penalidad_37.append([Penalidades37,True])
-        PenalidadesGlobal.append([Penalidades37,True])
-        Penalizacion(Penalidades37,estado)
-        PenalidadCarta37(estado)
+        if estado["Bloqueo cartas Seguridad"] > 0:
+            return estado
+        elif estado["Bloqueo cartas Seguridad"] == 0:
+            estado["Multas e indemnizaciones"] += 4000
+            estado["Unidades vendidas"] *= 0.5
+            estado["GuardadoValoresAuxiliarAccidenteDespues"] = estado["Cantidad de empleados"]
+            estado["GuardadoValoresAuxiliarAccidenteAntes"] = estado["Cantidad de empleados"] -1
+
+            Penalidades37 = {"Cartas":37,"Trabajador Accidente": 2}
+            Penalidad_37.append([Penalidades37,True])
+            PenalidadesGlobal.append([Penalidades37,True])
+            Penalizacion(Penalidades37,estado)
         return estado
 
     # Terminado

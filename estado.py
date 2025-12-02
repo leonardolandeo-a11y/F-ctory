@@ -1,5 +1,5 @@
 #### Importacion modulo cartas ####
-from cartas import PenalidadTurnos,EliminarPenalidad, EliminarPenalidadGlobal
+from cartas import PenalidadTurnos,EliminarPenalidad
 from cartas import PenalidadesGlobal,Penalidad_3,Penalidad_6,Penalidad_9,Penalidad_12,Penalidad_13,Penalidad_14,Penalidad_15,Penalidad_18,Penalidad_21,Penalidad_22,Penalidad_24,Penalidad_26,Penalidad_28,Penalidad_30,Penalidad_34,Penalidad_37,Penalidad_38,Penalidad_39,Penalidad_40
 import pandas as pd
 # Penalidad por cartas
