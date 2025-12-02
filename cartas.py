@@ -327,8 +327,8 @@ def aplicar_carta(numero: int , estado : dict):
     #   - Pierdes 1 maquina activa (pasa a dañada).
     #   - Pierdes 1 empleado.
     elif numero == 8:
-        if "AmbienteLaboralFavorable" in estado:
-            if estado["AmbienteLaboralFavorable"] == True:
+        if "AmbienteLaboralFavorable" in estado or "Subir Sueldos" in estado:
+            if estado["AmbienteLaboralFavorable"] == True or estado["Subir Sueldos"] >0:
                 print("Se evito la fuga de talento por el excelente ambiente laboral")
                 pass
         else:
