@@ -1,5 +1,5 @@
 #### Importacion modulo cartas ####
-from cartas import PenalidadTurnos,EliminarPenalidad
+from cartas import PenalidadTurnos,EliminarPenalidad, EliminarPenalidadGlobal
 from cartas import PenalidadesGlobal,Penalidad_3,Penalidad_6,Penalidad_9,Penalidad_12,Penalidad_13,Penalidad_14,Penalidad_15,Penalidad_18,Penalidad_21,Penalidad_22,Penalidad_24,Penalidad_26,Penalidad_28,Penalidad_30,Penalidad_34,Penalidad_37,Penalidad_38,Penalidad_39,Penalidad_40
 import pandas as pd
 # Penalidad por cartas
@@ -89,13 +89,12 @@ def calcular_estado_final(estado):
    if estado["Inventario"] == estado["InventarioMesAnterior"]:
       cuantoscaducan = max(1, int(estado["Insumos disponibles"] * 0.10)) if estado["Insumos disponibles"] > 0 else 0
       if estado["Insumos disponibles"] >= 10:
-         if "VentaExcedentesActivos" in estado:
-            if estado["VentaExcedentesActivos"] > 0:
-               preciov = cuantoscaducan * 0.30
-               estado["Caja disponible"] += preciov
+         if "VentaExcedentesActivos" in estado and estado["VentaExcedentesActivos"] > 0:
+            preciov = cuantoscaducan * 0.30
+            estado["Caja disponible"] += preciov
       else:
          estado["VentaExcedentesActivos"] = 0
-         estado["Insumos disponibles"] -= cuantoscaducan
+      estado["Insumos disponibles"] -= cuantoscaducan
       if estado["Insumos disponibles"] < 0:
             estado["Insumos disponibles"] = 0
 
@@ -120,16 +119,16 @@ def calcular_estado_final(estado):
    
    # Automatizacion de cartas con penalidades
 
-   for AuxPenalidad,BoolPenalidades in PenalidadesGlobal:
+   for AuxPenalidad,BoolPenalidades in PenalidadesGlobal: #Por Diccionario Penalidad , Valor de verdad en penalidad global
       
       for NombrePenalidad, ValorPenalidad in AuxPenalidad.items():
          if NombrePenalidad == "Carta":
             
             # Penalidades por Carta
             # Carta 3
-            if len(Penalidad_3) != 0:
-               if ValorPenalidad == 3 and Penalidad_3[0][1] == True:
-                  PenalidadTurnos(Penalidad_3[0][0],Penalidad_3,0, estado)
+            if len(Penalidad_3) != 0: #Si se activo (se genera la lista)
+               if ValorPenalidad == 3 and Penalidad_3[0][1] == True: #si su valor es 3 y su boleano V
+                  PenalidadTurnos(Penalidad_3[0][0],Penalidad_3,0, estado) #[0] entra a la penalidad, segundo al diccionario, luego la lista, indice y estado
                   PenalidadCarta3_1(estado)
                   PenalidadCarta3_2(estado)
                   EliminarPenalidad(Penalidad_3)
@@ -139,6 +138,7 @@ def calcular_estado_final(estado):
                   PenalidadTurnos(Penalidad_6[0][0], Penalidad_6,0,estado)
                   PenalidadCarta6(estado)
                   EliminarPenalidad(Penalidad_6)
+
             # Carta 9
             if len(Penalidad_9) != 0:
                if ValorPenalidad == 9 and Penalidad_9[0][1] == True:
